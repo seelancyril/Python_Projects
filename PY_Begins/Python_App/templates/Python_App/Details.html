@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books Results</title>
+    <link rel="shortcut icon" href="{% static 'Images/logo.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/See_My.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+    body {
+        background-image: url({% static 'Images/Background2.png' %});
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    </style>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <button type="button" class="formButton" onclick="goBack()"><span class="glyphicon glyphicon-search"></span>Back to
+        Search
+    </button>
+</div>
+{% block content %}
+<div class="container">
+    <h3 style="color: red">No of results found: {{ Tot }}</h3>
+    {% for x in valueIS %}
+    <a href="#" class="list-group-item" data-toggle="modal" data-target="#myModal">
+        <img src="{% static 'Images/Book_List.png' %}" style=" width: 100px; height : 100px">
+        <h3 style="color: red" class="list-group-item-heading" id="valueName">{{ x.Name }}</h3>
+        <p class="list-group-item-text">Author : {{ x.Author }}</p>
+        <p class="list-group-item-text">Publication : {{ x.Publication }}</p>
+        <p class="list-group-item-text">About : The more that you read, the more things you will know. The more that you
+            learn, the more places you’ll go. The world of books is the most remarkable creation of man. Nothing else
+            that he builds ever lasts. Monuments fall; nations perish; civilizations grow old and die out; and, after an
+            era of darkness, new races build others. But in the world of books are volumes that have seen this happen
+            again and again, and yet live on, still young, still as fresh as the day they were written, still telling
+            men’s hearts of the hearts of men centuries dead.</p>
+    </a>
+    {% endfor %}
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><script>
+document.write(document.getElementById("valueName"));
+</script></h4>
+            </div>
+            <div class="modal-body">
+                <p>Something is under construction!!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search for Books</title>
+    <link rel="shortcut icon" href="{% static 'Images/logo.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/See_My.css' %}">
+    <style>
+    body {
+        background-image: url({% static 'Images/Background2.png' %});
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    </style>
+</head>
+<body>
+<p class="formFont"><b>Search for Books!</b></p>
+<form action="/Python_App/BookDetails" method="GET" class="containerChange">
+    <div class="container">
+        <div class="container">
+            <div class="col col-md-4 formFont">
+                <label><b>Search by Name </b></label>
+                <label><b>Search by Author </b></label>
+                <label><b>Search by Publication</b></label>
+            </div>
+            <div class="col col-md-4 ">
+                {% block content %}
+                <input type="text" name="book" class="formFields" value="{{ content }}">
+                <input type="text" name="author" class="formFields">
+                <input type="text" name="pub" class="formFields">
+                {% endblock %}
+            </div>
+        </div>
+        <div class="col">
+            <button type="submit" class="formButton"><span class="glyphicon glyphicon-search"></span>&nbsp;Search
+            </button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

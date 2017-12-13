@@ -1,6 +1,29 @@
+{% load staticfiles %}
 <html>
-<head><title>The Book Library</title></head>
-<body style="background-image : url("Images/Background1")">
+<head>
+    <link rel="shortcut icon" href="{% static 'Images/logo.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/See_My.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>The Book Library</title>
+</head>
+<style>
+    body {
+        background-image: url({% static 'Images/Background1.png' %});
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
 
+
+</style>
+<body>
+<h2 style="color: red;">{{ first_name }}</h2>
+<form action="Second_Page" class="formFont" method="get">
+    <button type="submit" class="Buttoncenter" data-toggle="modal" data-target="#myModal">Inside...</button>
+</form>
+<div class="modal-dialog" id="myModal">
+
+</div>
 </body>
 </html>

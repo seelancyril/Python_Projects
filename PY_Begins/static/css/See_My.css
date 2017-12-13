@@ -1,0 +1,84 @@
+.Buttoncenter{
+        font-family:Century Gothic;
+        font-size : 48px;
+        font-weight: 200;
+        -webkit-border-image: -webkit-linear-gradient(to right, red, cyan) 1 100%;
+        border-radius: 12px;
+        border-width : 3px;
+        outline : 0;
+        background: linear-gradient(to right, red, cyan);
+        margin-left:auto;
+        margin-right:auto;
+        display:block;
+        margin-top:30%;
+        margin-bottom:0%;
+        transition-duration: 0.4s;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .Buttoncenter:hover {
+        background: linear-gradient(to right, cyan, red);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 200;
+    }
+    .formFont{
+        font-family:Century Gothic;
+        font-size : 36px;
+        font-weight: 200;
+        color: red;
+    }
+    .formFields{
+        font-family:Century Gothic;
+        font-size : 36px;
+        font-weight: 200;
+        border-radius: 12px;
+        border-width : 3px;
+        border-color: cyan;
+        background-color : black;
+        outline : 0;
+        color : cyan;
+    }
+    .formButton {
+        width : 70%;
+        color: red;
+        font-size : 36px;
+        font-weight: 200;
+       font-family:Century Gothic;
+        border-radius: 12px;
+        border-width : 3px;
+        outline : 0;
+        background: linear-gradient(to right, red, cyan);
+        -webkit-background-clip: text;
+        border-color: red;
+    }
+    .formButton:hover {
+        -webkit-background-clip: text;
+        font-weight: 200;
+        color: cyan;
+        border-color: cyan;
+    }
+    .containerChange{
+        padding-left: 90px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .loginmodal-container {
+      padding: 30px;
+      max-width: 350px;
+      width: 100% !important;
+      background-color: #F7F7F7;
+      margin: 0 auto;
+      border-radius: 2px;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      font-family: roboto;
+    }
+    .loginmodal {
+      text-align: center;
+      font-size: 14px;
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+      height: 36px;
+      padding: 0 8px;
+    }
