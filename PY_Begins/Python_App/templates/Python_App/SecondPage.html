@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-<p class="formFont"><b>Search for Books!</b></p>
+<p class="formFont" align="center"><b>Search for Books!</b></p>
 <form action="/Python_App/BookDetails" method="GET" class="containerChange">
     <div class="container">
         <div class="container">
@@ -26,7 +26,7 @@
             </div>
             <div class="col col-md-4 ">
                 {% block content %}
-                <input type="text" name="book" class="formFields" value="{{ content }}">
+                <input type="text" name="book" class="formFields" value="{{ content }}" >
                 <input type="text" name="author" class="formFields">
                 <input type="text" name="pub" class="formFields">
                 {% endblock %}
