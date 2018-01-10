@@ -58,6 +58,13 @@
         color: cyan;
         border-color: cyan;
     }
+    .topButton {
+        width : 70%;
+        font-size : 20px;
+        font-weight: 200;
+       font-family:Century Gothic;
+    }
+
     .containerChange{
         padding-left: 90px;
         margin-right: auto;

@@ -6,16 +6,47 @@
     <link rel="shortcut icon" href="{% static 'Images/logo.ico' %}"/>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/See_My.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
     body {
-        background-image: url({% static 'Images/Background2.png' %});
+        background: white;
         background-size: cover;
         background-repeat: no-repeat;
     }
+
+
+
+
+
     </style>
 </head>
 <body>
-<p class="formFont" align="center"><b>Search for Books!</b></p>
+<h1 style="font-family:Century Gothic; color:red" align="center">Search for Books!</h1>
+<form action="/Python_App/BookDetails" method="GET" class=" form-horizontal">
+    <div class="container">
+        <div class="container form-group" style="font-family:Century Gothic; color:red">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4" style="background:white">
+                <label class="control-label"><h3>Search by <strong>Name </strong></h3></label>
+                <input type="text" name="book" class="form-control">
+                <label class="control-label"><h3>Search by <strong>Author </strong></h3></label>
+                <input type="text" name="author" class="form-control">
+                <label class="control-label"><h3>Search by <strong>Publication </strong></h3></label>
+                <input type="text" name="pub" class="form-control"><br/>
+                <button type="submit" class="btn btn-danger" style="width:250px; height:50px; font-size:25px"><span class="glyphicon glyphicon-search"></span>&nbsp;Search
+                </button>
+                <br/><br/>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+</form>
+<!--
 <form action="/Python_App/BookDetails" method="GET" class="containerChange">
     <div class="container">
         <div class="container">
@@ -26,7 +57,7 @@
             </div>
             <div class="col col-md-4 ">
                 {% block content %}
-                <input type="text" name="book" class="formFields" value="{{ content }}" >
+                <input type="text" name="book" class="formFields" value="{{ content }}">
                 <input type="text" name="author" class="formFields">
                 <input type="text" name="pub" class="formFields">
                 {% endblock %}
@@ -38,5 +69,64 @@
         </div>
     </div>
 </form>
+-->
+<!--
+<div class="col">
+    <button type="button" class="formButton" data-toggle="modal" data-target="#myModal"><span
+            class="glyphicon glyphicon-plus"></span>&nbsp;Add a New Book
+    </button>
+</div>
+<br/>
+<div class="col">
+    <button type="button" class="formButton" data-toggle="modal" data-target="#myModal1"><span
+            class="glyphicon glyphicon-minus"></span>&nbsp;Remove an Existing Book
+    </button>
+</div>
+<div class="modal fade" id="myModal" role="dialog" style="font-family:Century Gothic;">
+    <div class="modal-dialog">
+        <!-- Modal content--> <!--
+        <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <p class="modal-title"><b>Adding a Book</b></p>
+                </div>
+            <form action="/Python_App/AddBook" method="GET">
+                <div class="modal-body">
+                    <label >Book Name</label>&nbsp;<input type="text" name="bookName">
+                    <label>Author</label>&nbsp;<input type="text" name="author"><br/>
+                    <label>Publication</label>&nbsp;&nbsp;<input type="text" name="publication">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info">Add</button>
+                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal1" role="dialog" style="font-family:Century Gothic;">
+    <div class="modal-dialog">
+        <!-- Modal content--> <!--
+        <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <p class="modal-title"><b>Removing a Book</b></p>
+                </div>
+            <form action="/Python_App/RemoveBook" method="GET">
+                <div class="modal-body">
+                    <label >Book Name</label>&nbsp;<input type="text" name="bookName">
+                    <label>Author</label>&nbsp;<input type="text" name="author"><br/>
+                    <label>Publication</label>&nbsp;&nbsp;<input type="text" name="publication">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Remove</button>
+                     <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+ -->
 </body>
 </html>
