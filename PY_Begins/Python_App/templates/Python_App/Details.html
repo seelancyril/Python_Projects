@@ -39,12 +39,15 @@
 <div class="container" style="margin-top:5px">
     <div class="row">
         <div class="col-md-4">
-            <button type="button" class="topButton btn btn-danger" onclick="goBack()"><span
+            <form action="/Python_App/Second_Page/" method="">
+            <button type="submit" class="topButton btn btn-danger"><span
                     class="glyphicon glyphicon-search"></span>&nbsp;Back
                 to
                 Search
             </button>
+            </form>
         </div>
+        {% if Access %}
         <div class="col-md-4" align="center">
             <button type="button" class="topButton btn btn-danger" data-toggle="modal" data-target="#myModal"><span
                     class="glyphicon glyphicon-plus"></span>&nbsp;Add
@@ -55,6 +58,7 @@
                     class="glyphicon glyphicon-pencil"></span>&nbsp;Update/Remove
             </button>
         </div>
+        {% endif %}
     </div>
 </div>
 {% block content %}
@@ -100,7 +104,8 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <p class="modal-title"><b>Adding a Book</b></p>
             </div>
-            <form action="/Python_App/AddBook" method="GET">
+            <form action="/Python_App/AddBook/" method="POST">
+                {% csrf_token %}
                 <div class="modal-body">
                     <label>Book Name</label>&nbsp;<input type="text" name="bookName" required>
                     <label>Author</label>&nbsp;<input type="text" name="author" required><br/><br/>
@@ -130,7 +135,8 @@
             </div>
             <div class="tab-content">
                 <div class="tab-pane fade in active " id="menu1">
-                    <form action="/Python_App/UpdateBook" method="GET">
+                    <form action="/Python_App/UpdateBook/" method="POST">
+                        {% csrf_token %}
                         <div class="modal-body">
                             <label>Choose Book to be updated </label>
                             <select name="bookNameOld" style="width:310px; height:28px">
@@ -149,7 +155,8 @@
                     </form>
                 </div>
                 <div class=" tab-pane fade" id="menu2">
-                    <form action="/Python_App/RemoveBook" method="GET">
+                    <form action="/Python_App/RemoveBook/" method="POST">
+                        {% csrf_token %}
                         <div class="modal-body" align="center">
                             <label>Book Name</label>
                             <select name="bookName" style="width:350px; height:28px">

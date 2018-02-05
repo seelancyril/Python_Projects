@@ -1,0 +1,26 @@
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="{% static 'Images/logo.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/See_My.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Registration - Book Lib</title>
+</head>
+<body>
+{% if messages %}
+{% for message in messages %}
+{% if message.tags %}
+<div class="alert alert-dismissable fade in" align="center" style="font-family:Century Gothic; font-size:18px;">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Info!</strong> {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<form action="/Python_App/" method="">
+    <button class="btn btn-primary">log in again</button>
+</form>
+</body>
+</html>
