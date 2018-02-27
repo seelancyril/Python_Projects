@@ -1,18 +1,22 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
 from Python_App.models import Book, User
 from django.contrib import messages
 import datetime
+import requests
 
 def index(request):
     first_name = 'John'
     timeNow = datetime.datetime.now()
-    return render(request, 'Python_App/index.html')
+    return render(request, 'Python_App/home.html')
     #return HttpResponseRedirect('secondPage')
+
+def loginPage(request):
+    return render(request, 'Python_App/login.html')
 
 def registerUser(request):
     name = request.POST.get('name')
@@ -31,22 +35,34 @@ def registerUser(request):
         data.save()
         messages.success(request, 'User registered to the system successfully!')
         status = 'Pass'
-    return render(request, 'Python_App/index.html', { 'status': status })
+    return render(request, 'Python_App/login.html', { 'status': status })
+
+def initiate_login(request, login):
+    def check_login(*args, **kwargs):
+        return render(request, 'Python_App/login.html')
+    return check_login
 
 def loginUser(request):
     uId = request.POST.get('uname')
     password = request.POST.get('passwd')
+    # user = authenticate(request, username=uId, password=password)
+    # if user is not None:
+    #     login(request, user)
+    #     return render(request, 'Python_App/SecondPage.html', {'userDetails': user}, uId)
+    # else:
+    #     result = 'Invalid Credential'
+    #     return render(request, 'Python_App/login.html', {'result': result})
     user = User.objects.filter(Q(UID=uId), Q(Password=password))
     if user:
         for a in user:
             userName = a.User_Name
-            print(userName)
         return render(request, 'Python_App/SecondPage.html', {'userDetails' : user}, userName)
     else:
         result = 'Invalid Credential'
-        return render(request, 'Python_App/index.html', {'result': result})
+        return render(request, 'Python_App/login.html', {'result': result})
     return render(request, 'Python_App/SecondPage.html', {'content' : ''})
 
+#@initiate_login
 def SecondPage(request):
     return render(request, 'Python_App/SecondPage.html', {'content' : ''})
 
@@ -123,3 +139,24 @@ def updateBook(request):
     dataAll = Book.objects.all().order_by('Name')
     totalValue = dataAll.count()
     return render(request, 'Python_App/Details.html', {'valueIS' : dataAll, 'Tot' : totalValue})
+
+def weatherForecast(request):
+    default_location = "Sholinganallur"
+    location = request.GET.get('city')
+    if location is None:
+        location = default_location
+    weather_data = {}
+    base_API_url = "http://api.openweathermap.org/data/2.5/weather?appid=122db1be332cfd2a8320b53ba1c0e5b8&q="
+    full_url = base_API_url + location
+    API_data = requests.get(full_url).json()
+    if API_data['cod'] != 200:
+        print("No Match found")
+    else:
+        weather_data['Main'] = API_data['weather'][0]['main']
+        weather_data['Description'] = API_data['weather'][0]['description']
+        weather_data['Temperature'] = API_data['main']['temp']
+        weather_data['Pressure'] = API_data['main']['pressure']
+        weather_data['Humidity'] = API_data['main']['humidity']
+        weather_data['Wind'] = API_data['wind']['speed']
+        return render(request, 'Python_App/weather.html', {'fromAPI': weather_data})
+    return render(request, 'Python_App/weather.html', {'fromAPI': weather_data})

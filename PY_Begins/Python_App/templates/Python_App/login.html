@@ -1,0 +1,80 @@
+{% extends 'Python_App/index.html' %}
+
+{% block body %}
+
+<!--<button type="submit" class="Buttoncenter" data-toggle="modal" data-target="#myModal">Inside...</button>
+<div class="modal-dialog" id="myModal">-->
+{% if messages %}
+{% for message in messages %}
+{% if message.tags %}
+<div class="alert alert-info alert-dismissable fade in" align="center" style="font-family:Century Gothic">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Info!</strong> {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<div class="container">
+    <div class="container form-group" style="font-family:Century Gothic; color:red">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4" style="background:white">
+            <br/>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#menu1"><h4><strong>Login</strong></h4></a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#menu2"><h4><strong>Sign up</strong></h4></a>
+                </li>
+            </ul>
+            {% if result %}
+                <div class="alert alert-danger alert-dismissible" role="alert"><strong>{{result}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+            {% endif %}
+            <div class="tab-content">
+                <div class=" tab-pane fade in active" id="menu1">
+                    <form action="/Python_App/home/" method="POST">
+                        {% csrf_token %}
+                        <label class="control-label"><h4><strong>User Name </strong></h4></label>
+                        <input type="text" name="uname" class="form-control" required>
+                        <label class="control-label"><h4><strong>Password </strong></h4></label>
+                        <input type="password" name="passwd" class="form-control" required><br/>
+                        <button type="submit" class="btn btn-danger" style="width:250px; height:50px; font-size:25px">
+                            Login
+                        </button>
+                        <br/><br/>
+                    </form>
+                </div>
+
+                <div class=" tab-pane fade" id="menu2">
+                    <form action="/Python_App/Registration/" method="POST">
+                        {% csrf_token %}
+                        <label class="control-label"><h4><strong>Name </strong></h4></label>
+                        <input type="text" name="name" class="form-control" required>
+                        <label class="control-label"><h4><strong>Email </strong></h4></label>
+                        <input type="email" name="email" class="form-control" required>
+                        <label class="control-label"><h4><strong>User Name </strong></h4></label>
+                        <input type="text" name="uname" class="form-control" required>
+                        <label class="control-label"><h4><strong>Password </strong></h4></label>
+                        <input type="password" name="passwd" class="form-control" required><br/>
+                        <label class="control-label"><h4><strong>Confirm Password </strong></h4></label>
+                        <input type="password" name="passwd_conf" class="form-control" required><br/>
+                        <button type="submit" class="btn btn-danger"
+                                style="width:250px; height:50px; font-size:25px">
+                            Register
+                        </button>
+                        <br/><br/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
