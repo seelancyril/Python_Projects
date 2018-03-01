@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
@@ -12,7 +12,15 @@ import requests
 def index(request):
     first_name = 'John'
     timeNow = datetime.datetime.now()
-    return render(request, 'Python_App/home.html')
+    print(request.user)
+    print(request.user)
+    if request.user.is_authenticated() == True:
+        allow = True
+        current_user = request.user
+        return render(request, 'Python_App/home.html', {'allow':allow ,'current_user':current_user})
+    else:
+        allow = False
+        return render(request, 'Python_App/login.html', {'allow':allow})
     #return HttpResponseRedirect('secondPage')
 
 def loginPage(request):
@@ -37,32 +45,35 @@ def registerUser(request):
         status = 'Pass'
     return render(request, 'Python_App/login.html', { 'status': status })
 
-def initiate_login(request, login):
-    def check_login(*args, **kwargs):
-        return render(request, 'Python_App/login.html')
-    return check_login
+# def initiate_login(request, login):
+#     def check_login(*args, **kwargs):
+#         return render(request, 'Python_App/login.html')
+#     return check_login
 
 def loginUser(request):
     uId = request.POST.get('uname')
     password = request.POST.get('passwd')
-    # user = authenticate(request, username=uId, password=password)
-    # if user is not None:
-    #     login(request, user)
-    #     return render(request, 'Python_App/SecondPage.html', {'userDetails': user}, uId)
-    # else:
-    #     result = 'Invalid Credential'
-    #     return render(request, 'Python_App/login.html', {'result': result})
-    user = User.objects.filter(Q(UID=uId), Q(Password=password))
-    if user:
-        for a in user:
-            userName = a.User_Name
-        return render(request, 'Python_App/SecondPage.html', {'userDetails' : user}, userName)
+    user = authenticate(request, username=uId, password=password)
+    if user is not None:
+        login(request, user)
+        print("user logged in: ", request.user.is_authenticated())
+        user_ID = request.user
+        print("Logged user:", user_ID)
+        allow = True
+        return render(request, 'Python_App/SecondPage.html', {'current_user': user_ID, 'allow':allow}, )
     else:
         result = 'Invalid Credential'
         return render(request, 'Python_App/login.html', {'result': result})
+    # user = User.objects.filter(Q(UID=uId), Q(Password=password))
+    # if user:
+    #     for a in user:
+    #         userName = a.User_Name
+    #     return render(request, 'Python_App/SecondPage.html', {'userDetails' : user}, userName)
+    # else:
+    #     result = 'Invalid Credential'
+    #     return render(request, 'Python_App/login.html', {'result': result})
     return render(request, 'Python_App/SecondPage.html', {'content' : ''})
 
-#@initiate_login
 def SecondPage(request):
     return render(request, 'Python_App/SecondPage.html', {'content' : ''})
 
@@ -158,5 +169,10 @@ def weatherForecast(request):
         weather_data['Pressure'] = API_data['main']['pressure']
         weather_data['Humidity'] = API_data['main']['humidity']
         weather_data['Wind'] = API_data['wind']['speed']
+        weather_data['Name'] = API_data['name']
         return render(request, 'Python_App/weather.html', {'fromAPI': weather_data})
     return render(request, 'Python_App/weather.html', {'fromAPI': weather_data})
+
+def logoutUser(request):
+    logout(request)
+    return render(request, 'Python_App/login.html')

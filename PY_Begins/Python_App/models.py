@@ -14,3 +14,16 @@ class User(models.Model):
     Role = models.CharField(max_length=20)
     logged_In = models.CharField(max_length=100)
 
+class Task(models.Model):
+    Task_ID = models.IntegerField(primary_key=True)
+    Title = models.CharField(max_length=500)
+    Desc = models.CharField(max_length=10000)
+    Priority = models.CharField(max_length=20)
+    Assigned_To = models.CharField(max_length=100)
+    ETA = models.DateField
+
+class Member(models.Model):
+    Mem_ID = models.IntegerField(primary_key=True)
+    Name = models.CharField(max_length=100)
+    Email = models.CharField(max_length=50)
+    Contact_No = models.IntegerField

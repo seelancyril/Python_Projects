@@ -1,0 +1,21 @@
+{% extends 'Python_App/index.html' %}
+{% load staticfiles %}
+{% block body %}
+<div>
+    <div class="container form-group" style="font-family:Century Gothic; color:red">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+            <form action="" method="POST" class=" form-horizontal">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Login</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

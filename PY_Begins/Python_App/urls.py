@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from . import views
+from . import views, taskAssigner
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^RemoveBook/', views.removeBook, name='RemoveBook'),
     url(r'^UpdateBook/', views.updateBook, name='UpdateBook'),
     url(r'^weather/', views.weatherForecast, name='weatherForecast'),
+    url(r'^task/', taskAssigner.taskAssigner, name='taskAssigner'),
+    url(r'^logout/', views.logoutUser, name='logoutUser'),
 ]

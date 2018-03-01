@@ -18,16 +18,29 @@
 <nav class="navbar navbar-default " style="background-color:#d9534f;">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand " href="#" style="color:white">Multi purpose App<small> by seelan</small></a>
+            <a class="navbar-brand " href="#" style="color:white">Multi purpose App</a>
         </div>
         <ul class="nav navbar-nav">
             <li ><a href="/Python_App/" class="glyphicon glyphicon-home" style="color:white"></a></li>
             <li><a href="/Python_App/BookSearch/" class="glyphicon glyphicon-book" style="color:white"></a></li>
             <li><a href="/Python_App/weather/" class="glyphicon glyphicon-cloud" style="color:white"></a></li>
+            <li><a href="/Python_App/task/" class="glyphicon glyphicon-tasks" style="color:white"></a></li>
         </ul>
+        {% block allow %}
+        {% if allow == False %}
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/Python_App/login/" style="color:white"><span class="glyphicon glyphicon-log-in" ></span> Login</a></li>
         </ul>
+        {% endif %}
+        {% if allow == True %}
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/Python_App/logout/" style="color:white"><span class="glyphicon glyphicon-log-out" ></span> Logout</a></li>
+        </ul>
+        {% endif %}
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="" style="color:white">{{ current_user }}</a></li>
+        </ul>
+        {% endblock %}
     </div>
 </nav>
 {% block body %}

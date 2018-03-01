@@ -13,9 +13,6 @@
 <div>
     <div class="col-md-4"></div>
     <div class="col-md-4"><h1 style="font-family:Century Gothic; color:red" align="center">Search for Books!</h1></div>
-    {% block uId %}
-    <div class="col-md-4" align="right"><h4 style="font-family:Century Gothic; color:red">Hello, <strong>{{ uId }}</strong></h4></div>
-    {% endblock %}
 </div>
 <form action="/Python_App/BookDetails/" method="POST" class=" form-horizontal">
     {% csrf_token %}
@@ -31,10 +28,10 @@
                 <input type="text" name="author" class="form-control">
                 <label class="control-label"><h3>Search by <strong>Publication </strong></h3></label>
                 <input type="text" name="pub" class="form-control"><br/>
-                {% for a in userDetails %}
-                <input type="hidden" name="LoggedUser" value="{{ a.User_Name }}">
-                <input type="hidden" name="Role" value="{{ a.Role }}">
-                {% endfor %}
+                {% block user %}
+                <input type="hidden" name="LoggedUser" value="{{ user }}">
+                <input type="hidden" name="Role" value="">
+                {% endblock %}
                 <button type="submit" class="btn btn-danger" style="width:250px; height:50px; font-size:25px"><span
                         class="glyphicon glyphicon-search"></span>&nbsp;Search
                 </button>
