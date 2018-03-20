@@ -1,27 +1,30 @@
 {% extends 'Python_App/index.html' %}
 {% load staticfiles %}
 {% block body %}
-<div style="background-image:url('{% static 'Images/smoke2.JPG' %}');">
+<div style="font-family:Century Gothic;">
     <div class="container">
         <form class="form-inline" action="/Python_App/weather/" method="GET">
             <div class="form-group">
                 <input type="text" class="form-control" name="city" required placeholder="Enter city">
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-danger">search</button>
+                <button type="submit" class="btn btn-info">search</button>
             </div>
         </form>
     </div>
     <div class="container">
         {% block fromAPI %}
-        <h1>Weather Report <strong style="color:#d9534f;">{{ fromAPI.Name }}</strong></h1>
-        <h2>{{ fromAPI.Main }}</h2>
-        <h2>{{ fromAPI.Description }}</h2>
-        <h2>{{ fromAPI.Temperature }}</h2>
-        <h2>{{ fromAPI.Pressure }}</h2>
-        <h2>{{ fromAPI.Humidity }}</h2>
-        <h2>{{ fromAPI.Wind }}</h2>
-
+        {% if fromAPI.Name %}
+        <h1>Weather Report <strong style="color:#04bcef;">{{ fromAPI.Name }}</strong></h1>
+        <h2><strong style="color:#04bcef;">{{ fromAPI.Main }}</strong></h2>
+        <h2>Description : <strong style="color:#04bcef;">{{ fromAPI.Description }}</strong></h2>
+        <h2>Temperature : <strong style="color:#04bcef;">{{ fromAPI.Temperature }}</strong></h2>
+        <h2>Pressure    : <strong style="color:#04bcef;">{{ fromAPI.Pressure }}</strong></h2>
+        <h2>Humidity    : <strong style="color:#04bcef;">{{ fromAPI.Humidity }}</strong></h2>
+        <h2>Wind Speed  : <strong style="color:#04bcef;">{{ fromAPI.Wind }}</strong></h2>
+        {% else %}
+        <h2>No Match found!!</h2>
+        {% endif %}
         {% endblock %}
     </div>
 </div>

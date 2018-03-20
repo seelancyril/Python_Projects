@@ -15,7 +15,7 @@
 {% endfor %}
 {% endif %}
 <div class="container">
-    <div class="container form-group" style="font-family:Century Gothic; color:red">
+    <div class="container form-group" style="font-family:Century Gothic; color:#04bcef">
         <div class="col-md-4">
 
         </div>
@@ -42,7 +42,7 @@
                         <input type="text" name="uname" class="form-control" required>
                         <label class="control-label"><h4><strong>Password </strong></h4></label>
                         <input type="password" name="passwd" class="form-control" required><br/>
-                        <button type="submit" class="btn btn-danger" style="width:250px; height:50px; font-size:25px">
+                        <button type="submit" class="btn btn-info" style="width:250px; height:50px; font-size:25px">
                             Login
                         </button>
                         <br/><br/>
@@ -52,17 +52,17 @@
                 <div class=" tab-pane fade" id="menu2">
                     <form action="/Python_App/Registration/" method="POST">
                         {% csrf_token %}
-                        <label class="control-label"><h4><strong>Name </strong></h4></label>
-                        <input type="text" name="name" class="form-control" required>
+                        <label class="control-label"><h4><strong>First Name </strong></h4></label>
+                        <input type="text" name="first_name" class="form-control" required>
+                        <label class="control-label"><h4><strong>Last Name </strong></h4></label>
+                        <input type="text" name="last_name" class="form-control" required>
                         <label class="control-label"><h4><strong>Email </strong></h4></label>
                         <input type="email" name="email" class="form-control" required>
                         <label class="control-label"><h4><strong>User Name </strong></h4></label>
                         <input type="text" name="uname" class="form-control" required>
                         <label class="control-label"><h4><strong>Password </strong></h4></label>
                         <input type="password" name="passwd" class="form-control" required><br/>
-                        <label class="control-label"><h4><strong>Confirm Password </strong></h4></label>
-                        <input type="password" name="passwd_conf" class="form-control" required><br/>
-                        <button type="submit" class="btn btn-danger"
+                        <button type="submit" class="btn btn-info"
                                 style="width:250px; height:50px; font-size:25px">
                             Register
                         </button>

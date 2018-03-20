@@ -4,19 +4,18 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from Python_App.models import Book, User
+from Python_App.models import Book, User, Task
 from django.contrib import messages
 import datetime
 import requests
 
+current_url = None
 def index(request):
     first_name = 'John'
     timeNow = datetime.datetime.now()
-    print(request.user)
-    print(request.user)
     if request.user.is_authenticated() == True:
         allow = True
-        current_user = request.user
+        current_user = request.user.first_name
         return render(request, 'Python_App/home.html', {'allow':allow ,'current_user':current_user})
     else:
         allow = False
@@ -27,7 +26,8 @@ def loginPage(request):
     return render(request, 'Python_App/login.html')
 
 def registerUser(request):
-    name = request.POST.get('name')
+    first_name = request.POST.get('first_name')
+    last_name = request.POST.get('last_name')
     email = request.POST.get('email')
     uId = request.POST.get('uname')
     password = request.POST.get('passwd')
@@ -58,9 +58,10 @@ def loginUser(request):
         login(request, user)
         print("user logged in: ", request.user.is_authenticated())
         user_ID = request.user
+        current_user = request.user.first_name
         print("Logged user:", user_ID)
         allow = True
-        return render(request, 'Python_App/SecondPage.html', {'current_user': user_ID, 'allow':allow}, )
+        return render(request, 'Python_App/SecondPage.html', {'current_user': current_user, 'allow':allow}, )
     else:
         result = 'Invalid Credential'
         return render(request, 'Python_App/login.html', {'result': result})
@@ -75,7 +76,13 @@ def loginUser(request):
     return render(request, 'Python_App/SecondPage.html', {'content' : ''})
 
 def SecondPage(request):
-    return render(request, 'Python_App/SecondPage.html', {'content' : ''})
+    if request.user.is_authenticated() == True:
+        allow = True
+        current_user = request.user.first_name
+        return render(request, 'Python_App/SecondPage.html', {'content' : '', 'allow':allow ,'current_user':current_user})
+    else:
+        allow = False
+        return render(request, 'Python_App/SecondPage.html', {'content': '', 'allow':allow })
 
 def BookDetails(request):
     name_book = request.POST.get("book")
@@ -86,8 +93,10 @@ def BookDetails(request):
     if(Role == 'admin'):
         showButtons  = True
     else:
-        showButtons = False
-    if (name_book !=''):
+        showButtons = True
+    if name_book is None and author_book is None and pub_book is None:
+        data = Book.objects.all()
+    elif (name_book !=''):
         data = Book.objects.filter(Q(Name__icontains = name_book))
     elif (author_book != ''):
         data = Book.objects.filter(Q(Author__icontains = author_book))
@@ -96,7 +105,16 @@ def BookDetails(request):
     else:
         data = Book.objects.filter(Q(Name__icontains = name_book) | Q(Publication__icontains = pub_book) | Q(Author__icontains = author_book)).order_by('Name')
     totalValue = data.count()
-    return render(request, 'Python_App/Details.html', {'valueIS' : data, 'Tot' : totalValue, 'Access':showButtons, 'loggedInuser':loggedUser})
+    if request.user.is_authenticated() == True:
+        allow = True
+        current_user = request.user.first_name
+        return render(request, 'Python_App/Details.html',
+                      {'valueIS' : data, 'Tot' : totalValue, 'Access':showButtons, 'loggedInuser':loggedUser, 'allow':allow, 'current_user':current_user})
+    else:
+        allow = False
+        return render(request, 'Python_App/Details.html',
+                      {'valueIS': data, 'Tot': totalValue, 'Access': showButtons, 'loggedInuser': loggedUser, 'allow': allow})
+
 
 def AddBook(request):
     name_book = request.POST.get("bookName")
@@ -162,6 +180,13 @@ def weatherForecast(request):
     API_data = requests.get(full_url).json()
     if API_data['cod'] != 200:
         print("No Match found")
+        if request.user.is_authenticated() == True:
+            allow = True
+            current_user = request.user.first_name
+            return render(request, 'Python_App/weather.html', {'allow':allow, 'current_user':current_user})
+        else:
+            allow = False
+            return render(request, 'Python_App/weather.html', {'allow':allow})
     else:
         weather_data['Main'] = API_data['weather'][0]['main']
         weather_data['Description'] = API_data['weather'][0]['description']
@@ -170,9 +195,26 @@ def weatherForecast(request):
         weather_data['Humidity'] = API_data['main']['humidity']
         weather_data['Wind'] = API_data['wind']['speed']
         weather_data['Name'] = API_data['name']
-        return render(request, 'Python_App/weather.html', {'fromAPI': weather_data})
+        if request.user.is_authenticated() == True:
+            allow = True
+            current_user = request.user.first_name
+            return render(request, 'Python_App/weather.html', {'fromAPI': weather_data, 'allow':allow, 'current_user':current_user})
+        else:
+            allow = False
+            return render(request, 'Python_App/weather.html', {'fromAPI': weather_data, 'allow':allow})
     return render(request, 'Python_App/weather.html', {'fromAPI': weather_data})
 
 def logoutUser(request):
     logout(request)
     return render(request, 'Python_App/login.html')
+
+def taskAssigner(request):
+    if request.user.is_authenticated() == True:
+        allow = True
+        current_user = request.user.first_name
+        current_userID =request.user
+        all_tasks = Task.objects.filter(Q(Assigned_By=current_userID))
+        return render(request, 'Python_App/Task_Assigner.html', {'allow':allow, 'current_user':current_user, 'tasks':all_tasks})
+    else:
+        allow = False
+        return render(request, 'Python_App/Task_Assigner.html', {'allow': allow})

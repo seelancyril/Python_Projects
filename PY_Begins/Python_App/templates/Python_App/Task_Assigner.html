@@ -1,21 +1,87 @@
 {% extends 'Python_App/index.html' %}
 {% load staticfiles %}
 {% block body %}
-<div>
+{% if print_this %}
+<h3>{{ print_this }}</h3>
+<div class="alert alert-info alert-dismissable fade in" align="center" style="font-family:Century Gothic;">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Info!</strong> {{ print_this }}
+</div>
+{% endif %}
+<div style="font-family:Century Gothic;">
     <div class="container form-group" style="font-family:Century Gothic; color:red">
         <div class="col-md-4">
 
         </div>
         <div class="col-md-4">
-            <form action="" method="POST" class=" form-horizontal">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Login</button>
-            </form>
+            <button type="button" class="topButton btn btn-info" data-toggle="modal" data-target="#myModal"><span
+                    class="glyphicon glyphicon-plus"></span>&nbsp;Create Task
+            </button>
         </div>
         <div class="col-md-4">
 
         </div>
     </div>
+    {% if allow == True %}
+    <div class="modal fade" id="myModal" role="dialog" style="font-family:Century Gothic;">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <p class="modal-title"><b>New Task Slot</b></p>
+                </div>
+                <form action="/Python_App/create_task/" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <label>Title</label>&nbsp;<input type="text" name="title" required>
+                        <label>Description</label>&nbsp;<input type="text" name="description" required><br/><br/>
+                        <label>Priority</label>&nbsp;
+                        <select name="priority" >
+                            <option value="low">low</option>
+                            <option value="medium">medium</option>
+                            <option value="high">high</option>
+                        </select>
+                        <label>Assigned To</label>&nbsp;&nbsp;<input type="text" name="assigned_to" required><br/><br/>
+                        <label>Assigned on</label>&nbsp;&nbsp;<input type="date" name="assigned_on" required>
+                        <label>ETA</label>&nbsp;&nbsp;<input type="datetime-local" name="eta" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">Create</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if allow == False %}
+    <div>
+        <h3>Please login to avail this feature!! :)</h3>
+    </div>
+    {% endif %}
+    {% if tasks %}
+    <div class="container">
+        {% for task in tasks %}
+        <form action="" class="list-group-item list-group-item-danger" id="ta">
+            <h3 style="color: red" class="list-group-item-heading">{{ task.Title }}<button class="btn glyphicon glyphicon-trash navbar-right deletebtn" type="submit"></button></h3>
+            <p class="list-group-item-text">Description : {{ task.Desc }}</p>
+            <p class="list-group-item-text">Priority : {{ task.Priority }}<button class="btn glyphicon glyphicon-pencil navbar-right editbtn" type="submit"></button></p>
+            <p class="list-group-item-text">Assigned To : {{ task.Assigned_To }}</p>
+            <p class="list-group-item-text">Assigned On : {{ task.Assigned_On }}</p>
+            <p class="list-group-item-text">ETA : {{ task.ETA }}</p>
+            <input type="hidden" name="task_id" value="{{ task.Task_ID }}">
+        </form>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
-
+<script>
+    $(".editbtn").click(function() {
+        $(this).closest("form").attr("action", "/Python_App/task/edit/");
+    });
+    $(".deletebtn").click(function() {
+        $(this).closest("form").attr("action", "/Python_App/task/delete/");
+    });
+</script>
 {% endblock %}
