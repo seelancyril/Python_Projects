@@ -63,10 +63,10 @@
     {% if tasks %}
     <div class="container">
         {% for task in tasks %}
-        <form action="" class="list-group-item list-group-item-danger" id="ta">
+        <form action="/Python_App/task/edit/" class="list-group-item list-group-item-info" id="ta">
             <h3 style="color: red" class="list-group-item-heading">{{ task.Title }}<button class="btn glyphicon glyphicon-trash navbar-right deletebtn" type="submit"></button></h3>
             <p class="list-group-item-text">Description : {{ task.Desc }}</p>
-            <p class="list-group-item-text">Priority : {{ task.Priority }}<button class="btn glyphicon glyphicon-pencil navbar-right editbtn" type="submit"></button></p>
+            <p class="list-group-item-text">Priority : {{ task.Priority }}<button class="btn glyphicon glyphicon-pencil navbar-right edit_btn" type="submit"></button></p>
             <p class="list-group-item-text">Assigned To : {{ task.Assigned_To }}</p>
             <p class="list-group-item-text">Assigned On : {{ task.Assigned_On }}</p>
             <p class="list-group-item-text">ETA : {{ task.ETA }}</p>
@@ -77,7 +77,7 @@
     {% endif %}
 </div>
 <script>
-    $(".editbtn").click(function() {
+    $(".edit_btn").click(function() {
         $(this).closest("form").attr("action", "/Python_App/task/edit/");
     });
     $(".deletebtn").click(function() {

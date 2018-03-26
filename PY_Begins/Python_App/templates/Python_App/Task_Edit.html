@@ -1,0 +1,30 @@
+{% extends 'Python_App/index.html' %}
+{% load staticfiles %}
+{% block body %}
+<div class="row"></div>
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
+    <form action="/Python_App/task/edited/" method="POST">
+        {% csrf_token %}
+        <label class="control-label"><h4><strong>Title </strong></h4></label>
+        <input type="text" name="title" class="form-control" value="{{ data.Title }}" required>
+        <label class="control-label"><h4><strong>Description</strong></h4></label>
+        <input type="text" name="description" class="form-control" value="{{ data.Desc }}" required>
+        <label class="control-label"><h4><strong>Priority </strong></h4></label>
+        <input type="text" name="priority" class="form-control" value="{{ data.Priority }}" required>
+        <label class="control-label"><h4><strong>Assigned To </strong></h4></label>
+        <input type="text" name="assigned_to" class="form-control" value="{{ data.Assigned_To }}" required>
+        <label class="control-label"><h4><strong>Assigned On </strong></h4></label>
+        <input type="date" name="assigned_on" class="form-control" value="{{ data.Assigned_On|date:"Y-m-d" }}" required><br/>
+        <label class="control-label"><h4><strong>ETA </strong></h4></label>
+        <input type="datetime-local" name="eta" class="form-control" value="{{ data.ETA|date:"Y-m-d H:i" }}" required><br/>
+        <input type="hidden" name="task_id" class="form-control" value="{{ data.Task_ID }}" required><br/>
+        <button type="submit" class="btn btn-info"
+                style="width:250px; height:50px; font-size:25px">
+            Save
+        </button>
+        <br/><br/>
+    </form>
+</div>
+<div class="col-sm-4"></div>
+{% endblock %}

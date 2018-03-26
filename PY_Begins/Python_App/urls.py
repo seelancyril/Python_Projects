@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^RemoveBook/', views.removeBook, name='RemoveBook'),
     url(r'^UpdateBook/', views.updateBook, name='UpdateBook'),
     url(r'^weather/', views.weatherForecast, name='weatherForecast'),
+    url(r'^task/edited/', taskAssigner.Task_Edited, name='Task_Edited'),
     url(r'^task/edit/', taskAssigner.editTask, name='editTask'),
     url(r'^task/delete/', taskAssigner.deleteTask, name='deleteTask'),
     url(r'^task/', views.taskAssigner, name='taskAssigner'),

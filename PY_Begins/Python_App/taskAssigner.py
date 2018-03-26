@@ -36,12 +36,32 @@ def create_task(request):
 
 def editTask(request):
     task_id = request.GET.get("task_id")
-    return redirect("/Python_App/task")
+    data = Task.objects.get(Task_ID=task_id)
+    return render(request, 'Python_App/Task_Edit.html', {'data':data})
 
 def deleteTask(request):
     task_id = request.GET.get("task_id")
-    print(task_id)
     data = Task.objects.get(Task_ID=task_id)
-    print(data)
     data.delete()
+    return redirect("/Python_App/task")
+
+def Task_Edited(request):
+    title = request.POST.get("title")
+    desc = request.POST.get("description")
+    priority = request.POST.get("priority")
+    assigned_to = request.POST.get("assigned_to")
+    assigned_on = request.POST.get("assigned_on")
+    assigned_by = str(request.user)
+    eta = request.POST.get("eta")
+    task_id = request.POST.get("task_id")
+    data = Task.objects.get(Task_ID=task_id)
+    data.Title = title
+    data.Desc = desc
+    data.Prority = priority
+    data.Assigned_To = assigned_to
+    data.Assigned_On = assigned_on
+    data.Assigned_By = assigned_by
+    data.ETA = eta
+    print(data)
+    data.save()
     return redirect("/Python_App/task")
